@@ -1,0 +1,34 @@
+name: Run Build and Tests on Pull Request
+run-name: 새로운 PR 생성되어, 빌드와 테스트를 진행합니다 🧪
+on: [pull_request]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20] # Node.js 버전 목록
+
+    steps:
+      - name: GitHub repository code checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build
+        run: npm run build
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Post Status to Pull Request
+        if: ${{ failure() }}
+        run: echo "❌ 테스트 실패 on Node.js ${{ matrix.node-version }}"
+      - name: Post Status to Pull Request
+        if: ${{ success() }}
+        run: echo "✅ 테스트 성공 on Node.js ${{ matrix.node-version }}"
