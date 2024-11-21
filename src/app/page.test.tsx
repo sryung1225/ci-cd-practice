@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import Home from "./page";
 
 describe("Page", () => {
-  it("renders the page", () => {
+  test("renders the page", () => {
     render(<Home />);
     expect(
       screen.getByText((content) =>
