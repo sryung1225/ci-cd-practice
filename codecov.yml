@@ -1,0 +1,12 @@
+coverage:
+  status:
+    project: #add everything under here, more options at https://docs.codecov.com/docs/commit-status
+      default:
+        # basic
+        target: auto # auto랑 설정 시 이전 커밋 대비 자동으로
+        threshold: 0% # 임계값
+        base: auto # 기본 비교 대상 (auto로 설정 시 기본 브랜치와 비교)
+  comment:
+    layout: "diff, flags, files" # PR 코멘트에 보여줄 커버리지 보고서 레이아웃
+    behavior: default # 기본 코멘트 동작
+    require_changes: false # 변경 사항 없는 PR에도 코멘트 추가

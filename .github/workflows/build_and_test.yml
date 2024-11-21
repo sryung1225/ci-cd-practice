@@ -1,8 +1,9 @@
-name: Run Build and Tests on Pull Request
-run-name: 새로운 PR 생성되어, 빌드와 테스트를 진행합니다 🧪
-on: [pull_request]
+name: Run Build and Tests, and Coverage Report
+run-name: 새로운 Push/PR 생성되어, 빌드와 테스트를 진행합니다 🧪
+on: [push, pull_request]
+
 jobs:
-  Explore-GitHub-Actions:
+  Build-and-Test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,8 +24,16 @@ jobs:
       - name: Run build
         run: npm run build
 
-      - name: Run tests
+      - name: Run tests with coverage
         run: npm run test
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # Codecov에서 생성한 토큰을 GitHub Secrets에 추가 필요
+          files: ./coverage/lcov.info # Jest에서 생성한 lcov 리포트 파일 경로
+          flags: unittests # 커버리지 플래그 지정(선택 사항)
+          fail_ci_if_error: true # 업로드 실패 시 워크플로우 실패
 
       - name: Post Status to Pull Request
         if: ${{ failure() }}
