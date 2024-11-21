@@ -10,3 +10,6 @@ coverage:
     layout: "diff, flags, files" # PR 코멘트에 보여줄 커버리지 보고서 레이아웃
     behavior: default # 기본 코멘트 동작
     require_changes: false # 변경 사항 없는 PR에도 코멘트 추가
+    require_base: false
+    require_head: true
+    hide_project_coverage: false
