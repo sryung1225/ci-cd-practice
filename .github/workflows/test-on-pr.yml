@@ -1,0 +1,27 @@
+name: Run Tests on Pull Request
+run-name: 새로운 PR 생성되어, 테스트를 진행합니다 🧪
+on: [pull_request]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      # GitHub 리포지토리 코드 체크아웃
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      # Node.js 설정
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18" # Node.js 버전을 필요에 맞게 지정
+
+      # 의존성 설치
+      - name: Install dependencies
+        run: npm install
+
+      # 테스트 실행
+      - name: Run tests
+        run: npm run test
+
+      # 완료
+      - run: echo "🍏 실행 완료! ${{ job.status }}."
